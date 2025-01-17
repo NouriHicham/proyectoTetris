@@ -58,6 +58,10 @@ function TablaPartidas(){
   );
 }
 
+function ordenarArray(){
+  
+}
+
 const partidas = [
   {name:"Juan", score:"333", date:"25-04-2011"},
   {name:"Jose", score:"523", date:"12-02-2012"},
