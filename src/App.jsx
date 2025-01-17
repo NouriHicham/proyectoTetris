@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { compareAsc, format } from "date-fns";
 import "./App.css";
 
 function Header(){
@@ -26,17 +27,34 @@ function Header(){
 
 function Puntuacion(props){
 
+  const fechaFormateada = format(props.date, 'dd/MM/yyyy');
+
   return (
     <tr>
       <td>{props.name}</td>
       <td>{props.score}</td>
-      <td>{props.date}</td>
+      <td>{fechaFormateada}</td>
     </tr>
   );
 }
 
 function TablaPartidas(){
-  
+
+  const [partidas, setPartidas] = useState([
+    {name:"Juan", score: 333, date: new Date(2014, 1, 11)},
+    {name:"Jose", score: 523, date: new Date(2012, 12, 11)},
+    {name:"Jorge", score: 135, date: new Date(2012, 12, 11)}
+  ]);
+
+  function ordenarArray(){
+    const arrayOrdenada = partidas.sort((partidaA, partidaB) => partidaB.score - partidaA.score)
+    setPartidas([...arrayOrdenada]);
+    console.log(partidas);
+  }
+
+  function addPartida(props){
+    
+  }
 
   return (
     <>
@@ -44,7 +62,7 @@ function TablaPartidas(){
         <thead>
           <tr>
             <th scope="col">Nombre</th>
-            <th scope="col">Puntuación <button className="btn btn-secondary">↑</button></th>
+            <th scope="col">Puntuación <button className="btn btn-secondary" onClick={ordenarArray}>↑</button></th>
             <th scope="col">Fecha</th>
           </tr>
         </thead>
@@ -54,19 +72,10 @@ function TablaPartidas(){
           ))}
         </tbody>
       </table>
+      <button className="btn btn-secondary">Añadir partida</button>
     </>
   );
 }
-
-function ordenarArray(){
-  
-}
-
-const partidas = [
-  {name:"Juan", score:"333", date:"25-04-2011"},
-  {name:"Jose", score:"523", date:"12-02-2012"},
-  {name:"Jorge", score:"135", date:"23-06-2011"}
-];
 
 function App() {
 
