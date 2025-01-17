@@ -53,7 +53,11 @@ function TablaPartidas(){
   }
 
   function addPartida(props){
-    
+    const name = props.name;
+    const score = props.score;
+    const date = new Date();
+
+    setPartidas(arrayAntiguo =>[...arrayAntiguo, {name: name, score: score, date: date}])
   }
 
   return (
@@ -72,7 +76,7 @@ function TablaPartidas(){
           ))}
         </tbody>
       </table>
-      <button className="btn btn-secondary">Añadir partida</button>
+      <button className="btn btn-secondary" onClick={() => addPartida({ name: "Maria", score: 450})}>Añadir partida</button>
     </>
   );
 }
