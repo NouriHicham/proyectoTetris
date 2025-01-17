@@ -2,29 +2,6 @@ import { useState } from "react";
 import { compareAsc, format } from "date-fns";
 import "./App.css";
 
-function Header(){
-  return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#">Tetris</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-lg-0">
-            <li className="nav-item">
-              <a className="nav-link" href="#">Home</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Link</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
 function Puntuacion(props){
 
   const fechaFormateada = format(props.date, 'dd/MM/yyyy');
@@ -49,7 +26,6 @@ function TablaPartidas(){
   function ordenarArray(){
     const arrayOrdenada = partidas.sort((partidaA, partidaB) => partidaB.score - partidaA.score)
     setPartidas([...arrayOrdenada]);
-    console.log(partidas);
   }
 
   function addPartida(props){
@@ -85,7 +61,6 @@ function App() {
 
   return (
     <>
-      <Header></Header>
       <TablaPartidas></TablaPartidas>
     </>
   );
