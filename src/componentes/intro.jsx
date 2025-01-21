@@ -1,3 +1,11 @@
+import { Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import {Juego} from "./juego";
+
+<Routes>
+  <Route path="/juego" element={<Juego/>}/>
+</Routes>
+
 export function Vista(){
    return(
      <>
@@ -8,7 +16,7 @@ export function Vista(){
          <p>Amb la fletxa avall pots girar la peça</p>
          <p>'<strong>Ñ</strong>' per canviar la peça actual per la peça que està a punt de sortir (que pots veure a la columna de la dreta)</p>
          <p>Al final de la partida podràs desar la teva puntuació, i verue el ranking de jugadors</p>
-         <button className="btn btn-success fs-1 mt-5">JUGAR</button>
+         <Link className='btn btn-primary' to="/juego">JUGAR</Link>
              <hr/>
        </div>
      </>

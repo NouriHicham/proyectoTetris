@@ -5,6 +5,7 @@ import "./App.css";
 import {TablaPartidas} from "./componentes/tabla";
 import {Vista} from "./componentes/intro"
 import {TablaRanking} from "./componentes/ranking";
+import {Juego} from "./componentes/juego";
 
 const App = () => {
     return(
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/" element={<Vista/>} />
           <Route path="/tabla" element={<TablaPartidas/>} />
           <Route path="/ranking" element={<TablaRanking/>} />
+          <Route path="/juego" element={<Juego/>}/>
         </Routes>
       </div>
       </Router>
