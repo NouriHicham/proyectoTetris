@@ -13,20 +13,21 @@ function Puntuacion(props){
      </tr>
    );
  }
+
+
  
 export function TablaPartidas(){
- 
-   const [partidas, setPartidas] = useState([
-     {name:"Juan", score: 333, date: new Date(2014, 1, 11)},
-     {name:"Jose", score: 523, date: new Date(2012, 12, 11)},
-     {name:"Jorge", score: 135, date: new Date(2012, 12, 11)}
-   ]);
- 
+  const [partidas, setPartidas] = useState([
+      {name:"Juan", score: 333, date: new Date(2014, 1, 11)},
+      {name:"Jose", score: 523, date: new Date(2012, 12, 11)},
+      {name:"Jorge", score: 135, date: new Date(2012, 12, 11)}
+    ]);
+
    function ordenarArray(){
      const arrayOrdenada = partidas.sort((partidaA, partidaB) => partidaB.score - partidaA.score)
      setPartidas([...arrayOrdenada]);
    }
- 
+
    function addPartida(props){
      const name = props.name;
      const score = props.score;
