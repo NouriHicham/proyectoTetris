@@ -14,6 +14,7 @@ const App = () => {
           <header className="d-flex justify-content-center py-3">
               <ul className="nav nav-pills">
               <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/juego">Jugar</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/tabla">Partidas</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/ranking">Ranking</Link></li>
               </ul>
