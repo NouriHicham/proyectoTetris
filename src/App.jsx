@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { compareAsc, format } from "date-fns";
 import "./App.css";
 import {TablaPartidas} from "./componentes/tabla";
 import {Vista} from "./componentes/intro"
