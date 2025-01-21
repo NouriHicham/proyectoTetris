@@ -1,69 +1,35 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { compareAsc, format } from "date-fns";
 import "./App.css";
+import {TablaPartidas} from "./componentes/tabla";
+import {Vista} from "./componentes/intro"
+import {TablaRanking} from "./componentes/ranking";
+import {Juego} from "./componentes/juego";
 
-function Puntuacion(props){
-
-  const fechaFormateada = format(props.date, 'dd/MM/yyyy');
-
-  return (
-    <tr>
-      <td>{props.name}</td>
-      <td>{props.score}</td>
-      <td>{fechaFormateada}</td>
-    </tr>
-  );
-}
-
-function TablaPartidas(){
-
-  const [partidas, setPartidas] = useState([
-    {name:"Juan", score: 333, date: new Date(2014, 1, 11)},
-    {name:"Jose", score: 523, date: new Date(2012, 12, 11)},
-    {name:"Jorge", score: 135, date: new Date(2012, 12, 11)}
-  ]);
-
-  function ordenarArray(){
-    const arrayOrdenada = partidas.sort((partidaA, partidaB) => partidaB.score - partidaA.score)
-    setPartidas([...arrayOrdenada]);
-  }
-
-  function addPartida(props){
-    const name = props.name;
-    const score = props.score;
-    const date = new Date();
-
-    setPartidas(arrayAntiguo =>[...arrayAntiguo, {name: name, score: score, date: date}])
-  }
-
-  return (
-    <>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Puntuación <button className="btn btn-secondary" onClick={ordenarArray}>↑</button></th>
-            <th scope="col">Fecha</th>
-          </tr>
-        </thead>
-        <tbody>
-        {partidas.map((partida, index)=>(
-          <Puntuacion key={index} name={partida.name} score={partida.score} date={partida.date}/>
-          ))}
-        </tbody>
-      </table>
-      <button className="btn btn-secondary" onClick={() => addPartida({ name: "Maria", score: 450})}>Añadir partida</button>
-    </>
-  );
-}
-
-function App() {
-
-  return (
-    <>
-      <TablaPartidas></TablaPartidas>
-    </>
-  );
-}
+const App = () => {
+    return(
+      <Router>
+        <div className="container">
+          <header className="d-flex justify-content-center py-3">
+              <ul className="nav nav-pills">
+              <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/juego">Jugar</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/tabla">Partidas</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/ranking">Ranking</Link></li>
+              </ul>
+          </header>
+        </div>
+        <div className="container mt-4">
+        <Routes>
+          <Route path="/" element={<Vista/>} />
+          <Route path="/tabla" element={<TablaPartidas/>} />
+          <Route path="/ranking" element={<TablaRanking/>} />
+          <Route path="/juego" element={<Juego/>}/>
+        </Routes>
+      </div>
+      </Router>
+    );
+  };
 
 export default App;
