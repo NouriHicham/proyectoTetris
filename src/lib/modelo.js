@@ -168,6 +168,6 @@ export const modelos = {
             [0, 9],
           ]
         ]
-      }
+      },
     ]
 }
