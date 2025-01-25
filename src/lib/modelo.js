@@ -76,7 +76,6 @@ export const modelos = {
         nombre: "T",
         matriz: [
           [
-            [0, 0, 0],
             [0, 5, 0],
             [5, 5, 5],
           ],
@@ -88,7 +87,6 @@ export const modelos = {
           [
             [5, 5, 5],
             [0, 5, 0],
-            [0, 0, 0],
           ],
           [
             [0, 5],

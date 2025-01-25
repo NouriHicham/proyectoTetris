@@ -1,22 +1,69 @@
-.tetris {
+.panel {
    display: grid;
    grid-template-columns: repeat(12, 50px);
 }
+
 .cuadrado {
    width: 50px;
    height: 50px;
-   border: 1px solid black;
+   box-shadow:0 0 0 1px black;
+   grid-gap: 1px;
 }
 
-.background0{
+.tetris {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.rotacion {
+   display: grid;
+   grid-template-columns: repeat(4, 50px);
+   margin-bottom: 10px;
+}
+
+.background0 {
+   background-color: whitesmoke;
+}
+
+.fila .background0 {
+   background-color: unset;
+   box-shadow: 0 0 0 0;
+}
+
+.background1 {
    background-color: gray;
 }
 
-.background1{
-   background-color: black;
-}
-
-.background2{
+.background2 {
    background-color: red;
 }
+
+.background3 {
+   background-color: yellow;
+}
+
+.background4 {
+   background-color: purple;
+}
+
+.background5 {
+   background-color: lightgreen;
+}
+
+.background6 {
+   background-color: green;
+}
+
+.background7 {
+   background-color: blue;
+}
+
+.background8 {
+   background-color: orangered;
+}
+
+.background9 {
+   background-color: pink;
+}
+
 

@@ -6,7 +6,7 @@ export function Panel(){
    const [arrayCasillas, setCasillas] = useState(modelos.matriz);
    
    return(
-      <div className="tetris">
+      <div className="panel">
          {arrayCasillas.map((row, rowIndex) =>
             row.map((cell, colIndex) => (
                <div key={`${rowIndex}-${colIndex}`} className={`cuadrado background${cell}`}></div>
