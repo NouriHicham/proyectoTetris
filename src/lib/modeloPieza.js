@@ -1,8 +1,8 @@
 import { modelos } from "./modelo";
 
 class modeloPieza{
-   constructor(numero){
-      this.numero = numero;
+   constructor(){
+      this.numero = Math.floor(Math.random() * modelos.piezas.length);
       this.nombre = modelos.piezas[this.numero].nombre;
       this.angulo = 0; //será un número (0,1,2,3) correspondiente a los ángulos 0º, 90º, 180º,270º.
       this.fila = 0;

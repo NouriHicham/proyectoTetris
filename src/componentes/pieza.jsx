@@ -1,8 +1,17 @@
 import {modelos} from "../lib/modelo"
 import { useState } from "react";
 import "./tetris.css"
+import { nuevaPieza } from "../lib/nuevaPieza";
 
 export function Piezas() {
+   const pieza = nuevaPieza();
+   console.log(pieza.numero) // 1 (un numero aleatorio, en este caso corresponde a la segunda pieza de modelos.piezas)
+   console.log(pieza.nombre) // "L"
+   console.log(pieza.angulo) // 0
+   console.log(pieza.fila, pieza.columna) // 0,1
+   console.log(pieza.matriz)  // [[2,0],[2,0],[2,2]]
+   console.log(pieza.girar()) // [[2,2,2],[2,0,0]]
+
 
    return (
       <div className="tetris">
