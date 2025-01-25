@@ -1,0 +1,22 @@
+.tetris {
+   display: grid;
+   grid-template-columns: repeat(12, 50px);
+}
+.cuadrado {
+   width: 50px;
+   height: 50px;
+   border: 1px solid black;
+}
+
+.background0{
+   background-color: gray;
+}
+
+.background1{
+   background-color: black;
+}
+
+.background2{
+   background-color: red;
+}
+

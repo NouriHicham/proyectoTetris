@@ -1,19 +1,17 @@
 import {modelos} from "../lib/modelo"
+import { useState } from "react";
+import "./tetris.css"
 
 export function Panel(){
-   for(let i=0; i <5; i++){
-      return (
-         <>
-            <div className="cuadrado"></div>
-         </>
-      );
-   }
+   const [arrayCasillas, setCasillas] = useState(modelos.matriz);
+   
+   return(
+      <div className="tetris">
+         {arrayCasillas.map((row, rowIndex) =>
+            row.map((cell, colIndex) => (
+               <div key={`${rowIndex}-${colIndex}`} className={`cuadrado background${cell}`}></div>
+            ))
+         )}
+      </div>
+   );
 }
-
-//export function Panel() {
-//    const cuadrados = [];
-//    for (let i = 0; i < 5; i++) {
-//       cuadrados.push(<div key={i} className="cuadrado"></div>);
-//    }
-//    return <>{cuadrados}</>;
-// }
