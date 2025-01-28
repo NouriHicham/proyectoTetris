@@ -7,9 +7,9 @@ export function Panel(){
    
    return(
       <div className="panel">
-         {arrayCasillas.map((row, rowIndex) =>
-            row.map((cell, colIndex) => (
-               <div key={`${rowIndex}-${colIndex}`} className={`cuadrado background${cell}`}></div>
+         {arrayCasillas.map((fila, filaIndex) =>
+            fila.map((celda, celIndex) => (
+               <div key={`${filaIndex}-${celIndex}`} className={`cuadrado background${celda}`}></div>
             ))
          )}
       </div>
