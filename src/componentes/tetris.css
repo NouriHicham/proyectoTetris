@@ -1,0 +1,63 @@
+.panel {
+   display: grid;
+   grid-template-columns: repeat(12, 50px);
+}
+
+.cuadrado {
+   width: 50px;
+   height: 50px;
+   box-shadow:0 0 0 1px black;
+   grid-gap: 1px;
+}
+
+.tetris {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.rotacion {
+   display: grid;
+   grid-template-columns: repeat(4, 50px);
+   margin-bottom: 10px;
+}
+
+.background0 {
+   background-color: whitesmoke;
+}
+
+.fila .background0 {
+   background-color: unset;
+   box-shadow: 0 0 0 0;
+}
+
+.background1 {
+   background-color: gray;
+}
+
+.background2 {
+   background-color: red;
+}
+
+.background3 {
+   background-color: yellow;
+}
+
+.background4 {
+   background-color: purple;
+}
+
+.background5 {
+   background-color: deepskyblue;
+}
+
+.background6 {
+   background-color: green;
+}
+
+.background7 {
+   background-color: blue;
+}
+
+.background8 {
+   background-color: orangered;
+}
