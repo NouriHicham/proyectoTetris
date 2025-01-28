@@ -16,7 +16,8 @@ class modeloPieza{
       }else{
          this.angulo++;
       }
-      
+      this.matriz = modelos.piezas[this.numero].matriz[this.angulo];
+      return this.matriz
    }
 
 }

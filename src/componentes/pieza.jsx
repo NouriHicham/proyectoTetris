@@ -12,30 +12,29 @@ export function Piezas() {
    console.log(pieza.matriz)  // [[2,0],[2,0],[2,2]]
    console.log(pieza.girar()) // [[2,2,2],[2,0,0]]
 
+   // return (
+   //    <div className="tetris">
 
-   return (
-      <div className="tetris">
+   //       {modelos.piezas.map((pieza, piezaIndex) => (
 
-         {modelos.piezas.map((pieza, piezaIndex) => (
-
-            <div key={piezaIndex} className="pieza">
-               <h3>Pieza {pieza.nombre}</h3>
-               {pieza.matriz.map((rotacion, rotacionIndex) => (
-                  <div key={rotacionIndex} className="rotacion">
-                     {rotacion.map((row, rowIndex) => (
-                        <div key={rowIndex} className="fila">
-                           {row.map((cell, colIndex) => (
-                              <div
-                                 key={`${rowIndex}-${colIndex}`}
-                                 className={`cuadrado background${cell}`}
-                              ></div>
-                           ))}
-                        </div>
-                     ))}
-                  </div>
-               ))}
-            </div>
-         ))}
-      </div>
-   );
+   //          <div key={piezaIndex} className="pieza">
+   //             <h3>Pieza {pieza.nombre}</h3>
+   //             {pieza.matriz.map((rotacion, rotacionIndex) => (
+   //                <div key={rotacionIndex} className="rotacion">
+   //                   {rotacion.map((row, rowIndex) => (
+   //                      <div key={rowIndex} className="fila">
+   //                         {row.map((cell, colIndex) => (
+   //                            <div
+   //                               key={`${rowIndex}-${colIndex}`}
+   //                               className={`cuadrado background${cell}`}
+   //                            ></div>
+   //                         ))}
+   //                      </div>
+   //                   ))}
+   //                </div>
+   //             ))}
+   //          </div>
+   //       ))}
+   //    </div>
+   // );
 }
