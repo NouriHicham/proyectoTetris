@@ -10,8 +10,7 @@ export function Juego(){
 
    function pintarPieza(){
       const pieza = nuevaPieza();
-      pieza.columna = Math.floor(Math.random() * ((modelos.matriz[0].length)-2)) + 1;
-
+      pieza.columna = Math.floor(Math.random() * 9) + 1;
       setPiezaactual(pieza);
 
       const nuevoPanel = arrayCasillas.map((fila) => [...fila]);
@@ -21,19 +20,28 @@ export function Juego(){
             const dibujaFila = pieza.fila + i;
             const dibujaCelda = pieza.columna + j;
 
-            nuevoPanel[dibujaFila][dibujaCelda] = celda;
+            //esto quitalo mas tarde
+            if(nuevoPanel[dibujaFila][dibujaCelda]==1){
+               console.log('colision');
+               return;
+            }else{
+               nuevoPanel[dibujaFila][dibujaCelda] = celda;
+               setCasillas(nuevoPanel);
+            }
+            //final de lo que tienes que quitar
+ 
          })
       })
 
-      setCasillas(nuevoPanel);
+      
    }
 
 
    return(
    <>
       <Panel arrayCasillas={arrayCasillas}/>
-      <Piezas/>
       <button onClick={pintarPieza}>Insertar Nueva Pieza</button>
+      <Piezas/>
    </>
    );
 }
