@@ -27,7 +27,6 @@ export function Juego(){
             }else{
                nuevoPanel[dibujaFila][dibujaCelda] = celda;
             }
-            //final de lo que tienes que quitar
  
          })
       })
@@ -79,25 +78,34 @@ export function Juego(){
    }
 
    function bajar() {
-      //console.log("Bajar");
-      if (piezaActual) {
-         piezaActual.fila += 1;
-         pintarPieza();
-      }
+      console.log("Bajar");
+      console.log(piezaActual);
+      piezaActual.fila += 1;
+      pintarPieza(); 
    }
 
    function girar() {
       //console.log("Girar");
-      if (piezaActual) {
-         piezaActual.girar();
-         pintarPieza();
-      }
+      piezaActual.girar();
+      pintarPieza();
+   }
+
+   function iniciarMovimiento(){
+      //console.log("Iniciar");
+      setInterval(bajar, 1000);
+      pintarPieza();
+   }
+
+   function iniciar(){
+      pintarPieza();
+      iniciarMovimiento();
    }
 
    return(
    <>
+      
       <Panel arrayCasillas={arrayCasillas}/>
-      <button onClick={pintarPieza}>Insertar Nueva Pieza</button>
+      <button onClick={iniciar}>Jugar</button>
       {/* <Piezas/> */}
    </>
    );
