@@ -10,8 +10,7 @@ export function Juego(){
 
    //añade pieza arriba
    function pintarPieza(){
-      const pieza = nuevaPieza();
-      pieza.columna = Math.floor(Math.random() * 9) + 1;
+      const pieza = piezaActual || nuevaPieza();
       setPiezaactual(pieza);
 
       const nuevoPanel = arrayCasillas.map((fila) => [...fila]);
@@ -22,17 +21,18 @@ export function Juego(){
             const dibujaCelda = pieza.columna + j;
 
             //esto quitalo mas tarde
-            // if(nuevoPanel[dibujaFila][dibujaCelda]==1){
-            //    console.log('colision');
-            //    return;
-            // }else{
-            //    nuevoPanel[dibujaFila][dibujaCelda] = celda;
-            //    setCasillas(nuevoPanel);
-            // }
+            if(nuevoPanel[dibujaFila][dibujaCelda]==1){
+               console.log('colision');
+               return;
+            }else{
+               nuevoPanel[dibujaFila][dibujaCelda] = celda;
+            }
             //final de lo que tienes que quitar
  
          })
       })
+
+      setCasillas(nuevoPanel);
 
    }
 
@@ -60,7 +60,7 @@ export function Juego(){
       window.addEventListener("keydown", Teclas);
       return () => window.removeEventListener("keydown", Teclas);
       
-   }, []);
+   }, [piezaActual]);
 
    function moverDer() {
       console.log("Mover a la derecha");
@@ -71,7 +71,11 @@ export function Juego(){
    }
 
    function bajar() {
-      console.log("Bajar");
+      //console.log("Bajar");
+      if (piezaActual) {
+         piezaActual.fila += 1;
+         pintarPieza();
+      }
    }
 
    function girar() {
@@ -82,7 +86,7 @@ export function Juego(){
    <>
       <Panel arrayCasillas={arrayCasillas}/>
       <button onClick={pintarPieza}>Insertar Nueva Pieza</button>
-      <Piezas/>
+      {/* <Piezas/> */}
    </>
    );
 }

@@ -6,7 +6,7 @@ class modeloPieza{
       this.nombre = modelos.piezas[this.numero].nombre;
       this.angulo = 0; //será un número (0,1,2,3) correspondiente a los ángulos 0º, 90º, 180º,270º.
       this.fila = 0;
-      this.columna = 1;
+      this.columna = Math.floor(Math.random() * 9) + 1;
       this.matriz = modelos.piezas[this.numero].matriz[this.angulo];
    }
 
