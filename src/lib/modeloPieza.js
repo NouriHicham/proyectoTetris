@@ -11,7 +11,7 @@ class modeloPieza{
    }
 
    girar(){
-      if(this.angulo==3){
+      if(this.angulo==modelos.piezas[this.numero].matriz.length-1){
          this.angulo=0
       }else{
          this.angulo++;

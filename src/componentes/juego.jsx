@@ -63,11 +63,19 @@ export function Juego(){
    }, [piezaActual]);
 
    function moverDer() {
-      console.log("Mover a la derecha");
+      //console.log("Mover a la derecha");
+      if (piezaActual) {
+         piezaActual.columna += 1;
+         pintarPieza();
+      }
    }
 
    function moverIzq() {
-      console.log("Mover a la izquierda");
+      //console.log("Mover a la izquierda");
+      if (piezaActual) {
+         piezaActual.columna -= 1;
+         pintarPieza();
+      }
    }
 
    function bajar() {
@@ -79,7 +87,11 @@ export function Juego(){
    }
 
    function girar() {
-      console.log("Girar");
+      //console.log("Girar");
+      if (piezaActual) {
+         piezaActual.girar();
+         pintarPieza();
+      }
    }
 
    return(
