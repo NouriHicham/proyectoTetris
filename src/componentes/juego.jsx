@@ -3,10 +3,17 @@ import {Panel} from "./panel"
 import { Piezas } from "./pieza";
 import { nuevaPieza } from "../lib/nuevaPieza";
 import {modelos} from "../lib/modelo"
+import { compareAsc, format } from "date-fns";
 
 export function Juego(){
    const [arrayCasillas, setCasillas] = useState(modelos.matriz);
-   const [piezaActual, setPiezaactual] = useState(nuevaPieza())
+   const [piezaActual, setPiezaactual] = useState(nuevaPieza());
+
+   var puntuacion = 0;
+   let nombre = "";
+   let date = new Date();
+
+   var timer;
 
    //añade pieza arriba
    function pintarPieza(){
@@ -26,7 +33,6 @@ export function Juego(){
       })
 
       setCasillas(nuevoPanel);
-
    }
 
    //detectar teclas
@@ -57,47 +63,69 @@ export function Juego(){
 
    function moverDer() {
       //console.log("Mover a la derecha");
-      if (piezaActual) {
-         piezaActual.columna += 1;
-         pintarPieza();
-      }
+      piezaActual.columna += 1;
+      sumarPuntos(10);
+      pintarPieza();
    }
 
    function moverIzq() {
       //console.log("Mover a la izquierda");
-      if (piezaActual) {
-         piezaActual.columna -= 1;
-         pintarPieza();
-      }
+      piezaActual.columna -= 1;
+      sumarPuntos(10);
+      pintarPieza();
    }
 
    function bajar() {
-      console.log("Bajar");
+      //console.log("Bajar");
       console.log(piezaActual);
       piezaActual.fila += 1;
+      sumarPuntos(10);
       pintarPieza(); 
+      piezaLlegaAbajo();
    }
 
    function girar() {
       //console.log("Girar");
       piezaActual.girar();
+      sumarPuntos(20);
       pintarPieza();
    }
 
    function iniciarMovimiento(){
       //console.log("Iniciar");
-      setInterval(bajar, 1000);
+      timer = setInterval(bajar, 1000);
       pintarPieza();
    }
 
    function iniciar(){
+      preguntarNombre();
       pintarPieza();
       iniciarMovimiento();
    }
 
+   //sumar puntos
+   function sumarPuntos(puntos){
+      puntuacion += puntos;
+   }
+
+   //preguntar nombre y guardar fecha
+   function preguntarNombre(){
+      while(nombre === "" || nombre === null){
+      nombre = prompt("Introduce tu nombre");
+      }
+   }
+
+   //detectar que la pieza ha llegado abajo
+   function piezaLlegaAbajo() {
+      if (piezaActual.fila === 19) {
+         sumarPuntos(50);
+         console.log(nombre, format(date, 'dd/MM/yyyy'), puntuacion);
+         clearInterval(timer);
+      }
+   }
+
    return(
    <>
-      
       <Panel arrayCasillas={arrayCasillas}/>
       <button onClick={iniciar}>Jugar</button>
       {/* <Piezas/> */}
