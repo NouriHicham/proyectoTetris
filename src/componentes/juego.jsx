@@ -119,9 +119,13 @@ export function Juego(){
    function piezaLlegaAbajo() {
       if (piezaActual.fila === 19) {
          sumarPuntos(50);
-         console.log(nombre, format(date, 'dd/MM/yyyy'), puntuacion);
-         clearInterval(timer);
+         terminarPartida();
       }
+   }
+
+   function terminarPartida(){
+      console.log(nombre, format(date, 'dd/MM/yyyy'), puntuacion);
+      clearInterval(timer);
    }
 
    return(
