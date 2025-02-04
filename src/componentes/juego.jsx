@@ -19,15 +19,9 @@ export function Juego(){
          fila.forEach((celda, j) => {
             const dibujaFila = pieza.fila + i;
             const dibujaCelda = pieza.columna + j;
-
-            //esto quitalo mas tarde
-            if(nuevoPanel[dibujaFila][dibujaCelda]==1){
-               console.log('colision');
-               return;
-            }else{
-               nuevoPanel[dibujaFila][dibujaCelda] = celda;
-            }
-
+            
+            nuevoPanel[dibujaFila][dibujaCelda] = celda;
+         
          })
       })
 
