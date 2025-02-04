@@ -128,6 +128,10 @@ export function Juego(){
       clearInterval(timer);
    }
 
+   function registrarPartida(){
+      
+   }
+
    return(
    <>
       <Panel arrayCasillas={arrayCasillas}/>
