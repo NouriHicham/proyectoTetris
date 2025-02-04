@@ -6,11 +6,11 @@ import {modelos} from "../lib/modelo"
 
 export function Juego(){
    const [arrayCasillas, setCasillas] = useState(modelos.matriz);
-   const [piezaActual, setPiezaactual] = useState(null)
+   const [piezaActual, setPiezaactual] = useState(nuevaPieza())
 
    //añade pieza arriba
    function pintarPieza(){
-      const pieza = piezaActual || nuevaPieza();
+      const pieza = piezaActual;
       setPiezaactual(pieza);
 
       const nuevoPanel = arrayCasillas.map((fila) => [...fila]);
@@ -27,7 +27,7 @@ export function Juego(){
             }else{
                nuevoPanel[dibujaFila][dibujaCelda] = celda;
             }
- 
+
          })
       })
 
