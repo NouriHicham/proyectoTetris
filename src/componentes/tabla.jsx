@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import { compareAsc, format } from "date-fns";
+import tablaPartidas from "./context";
+import { useContext } from "react";
 
 function Puntuacion(props){
 
@@ -14,28 +16,15 @@ function Puntuacion(props){
    );
  }
 
-
- 
 export function TablaPartidas(){
-  const [partidas, setPartidas] = useState([
-      {name:"Juan", score: 333, date: new Date(2014, 1, 11)},
-      {name:"Jose", score: 523, date: new Date(2012, 12, 11)},
-      {name:"Jorge", score: 135, date: new Date(2012, 12, 11)}
-    ]);
-
+  
    function ordenarArray(){
      const arrayOrdenada = partidas.sort((partidaA, partidaB) => partidaB.score - partidaA.score)
      setPartidas([...arrayOrdenada]);
    }
+ 
+   const { array, setArray } = useContext(tablaPartidas);
 
-   function addPartida(props){
-     const name = props.name;
-     const score = props.score;
-     const date = new Date();
- 
-     setPartidas(arrayAntiguo =>[...arrayAntiguo, {name: name, score: score, date: date}])
-   }
- 
    return (
      <>
        <table className="table">
@@ -47,12 +36,11 @@ export function TablaPartidas(){
            </tr>
          </thead>
          <tbody>
-         {partidas.map((partida, index)=>(
+         {array.map((partida, index)=>(
            <Puntuacion key={index} name={partida.name} score={partida.score} date={partida.date}/>
            ))}
          </tbody>
        </table>
-       <button className="btn btn-secondary" onClick={() => addPartida({ name: "Maria", score: 450})}>Añadir partida</button>
      </>
    );
  }
