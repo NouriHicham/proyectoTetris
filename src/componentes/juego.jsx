@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react"
-import {Panel} from "./panel"
-import { Piezas } from "./pieza";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Panel } from "./panel";
 import { nuevaPieza } from "../lib/nuevaPieza";
-import {modelos} from "../lib/modelo"
-import { compareAsc, format } from "date-fns";
+import { modelos } from "../lib/modelo";
+import { PartidasContext } from "./crearcontexto";
+import { format } from "date-fns";
 
 export function Juego(){
    const [arrayCasillas, setCasillas] = useState(modelos.matriz);
@@ -126,10 +127,8 @@ export function Juego(){
    function terminarPartida(){
       console.log(nombre, format(date, 'dd/MM/yyyy'), puntuacion);
       clearInterval(timer);
-   }
-
-   function registrarPartida(){
-      
+      addPartida({ name: nombre, score: puntuacion });
+      navigate("/tabla");
    }
 
    return(
