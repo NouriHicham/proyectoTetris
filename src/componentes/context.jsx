@@ -1,30 +1,32 @@
 import React, { useContext } from 'react';
-import crearcontexo from './crearcontexto';
+import {PartidasContext} from './crearcontexto';
 import { useState } from 'react';
 
-
-const tablaPartidas = ({ children }) => {
+const PartidasProvider = ({ children }) => {
 
    const [partidasArray, setPartidasArray] = useState([
-      {name:"Juan", score: 333, date: new Date(2014, 1, 11)},
-      {name:"Jose", score: 523, date: new Date(2012, 12, 11)},
-      {name:"Jorge", score: 135, date: new Date(2012, 12, 11)}
+     { name: "Juan", score: 333, date: new Date(2014, 1, 11) },
+     { name: "Jose", score: 523, date: new Date(2012, 12, 11) },
+     { name: "Jorge", score: 135, date: new Date(2012, 12, 11) }
    ]);
+ 
+   const addPartida = ({ name, score }) => {
+     const date = new Date();
+     setPartidasArray(prev => [...prev, { name, score, date }]);
+   };
 
-   function addPartida(props){
-   const name = props.name;
-   const score = props.score;
-   const date = new Date();
-
-   setArray(arrayAntiguo =>[...arrayAntiguo, {name: name, score: score, date: date}])
-   }
-
+   const ordenarArray = () => {
+      const arrayOrdenada = [...partidasArray].sort((partidaA, partidaB) => partidaB.score - partidaA.score);
+      setPartidasArray(arrayOrdenada);
+    };
+ 
    return (
-      <MyArrayContext.Provider value={{ setArray, addPartida }}>
-        {children}
-      </MyArrayContext.Provider>
-    );
-  
-};
+     <PartidasContext.Provider value={{ partidasArray, addPartida, ordenarArray }}>
+       {children}
+     </PartidasContext.Provider>
+   );
 
-export default tablaPartidas;
+ };
+ 
+
+export default PartidasProvider;
