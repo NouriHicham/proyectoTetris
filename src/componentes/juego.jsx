@@ -133,7 +133,7 @@ export function Juego(){
 
    function iniciarMovimiento(){
       clearInterval(timerId); // Asegurar que no haya múltiples temporizadores
-      const newTimer = setInterval(bajar, 1000);
+      //const newTimer = setInterval(bajar, 1000);
       setTimerId(newTimer);
    }
 
