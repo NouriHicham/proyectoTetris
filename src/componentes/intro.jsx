@@ -17,7 +17,6 @@ export function Vista(){
          <p>'<strong>Ñ</strong>' per canviar la peça actual per la peça que està a punt de sortir (que pots veure a la columna de la dreta)</p>
          <p>Al final de la partida podràs desar la teva puntuació, i verue el ranking de jugadors</p>
          <Link className='btn btn-primary' to="/juego">JUGAR</Link>
-             <hr/>
        </div>
      </>
    );
