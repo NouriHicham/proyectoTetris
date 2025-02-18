@@ -10,7 +10,6 @@ export function Juego(){
    const [arrayCasillas, setCasillas] = useState(modelos.matriz);
    const [piezaActual, setPiezaactual] = useState(nuevaPieza());
    const { addPartida } = useContext(PartidasContext);
-
    const navigate = useNavigate();
 
    var puntuacion = 0;
@@ -21,6 +20,11 @@ export function Juego(){
 
    //añade pieza arriba
    function pintarPieza(){
+      if (hayColision()) {
+         console.log("choque");
+         return;
+      }
+
       const pieza = piezaActual;
       setPiezaactual(pieza);
 
@@ -37,6 +41,25 @@ export function Juego(){
       })
 
       setCasillas(nuevoPanel);
+   }
+
+   function hayColision() {
+      const pieza = piezaActual;
+
+      for (let i = 0; i < pieza.matriz.length; i++) {
+         for (let j = 0; j < pieza.matriz[i].length; j++) {
+            if (pieza.matriz[i][j] !== 0) { //si la celda de la pieza no esta vacia
+               const fila = pieza.fila + i;
+               const columna = pieza.columna + j;
+
+               //verificamos si esta fuera del panel
+               if (fila >= arrayCasillas.length || columna < 0 || columna >= arrayCasillas[0].length || arrayCasillas[fila][columna] !== 0) {
+                  return true;
+               }
+            }
+         }
+      }
+      return false;
    }
 
    //detectar teclas
