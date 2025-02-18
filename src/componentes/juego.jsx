@@ -16,36 +16,28 @@ export function Juego(){
    let nombre = "";
    let date = new Date();
 
-   var timer;
+   const [timerId, setTimerId] = useState(null);
 
    //añade pieza arriba
    function pintarPieza(){
-      if (hayColision()) {
-         console.log("choque");
-         return;
-      }
-
-      const pieza = piezaActual;
-      setPiezaactual(pieza);
-
       const nuevoPanel = arrayCasillas.map((fila) => [...fila]);
 
-      pieza.matriz.forEach((fila, i) =>{
+      piezaActual.matriz.forEach((fila, i) =>{
          fila.forEach((celda, j) => {
-            const dibujaFila = pieza.fila + i;
-            const dibujaCelda = pieza.columna + j;
+            const dibujaFila = piezaActual.fila + i;
+            const dibujaCelda = piezaActual.columna + j;
             
-            nuevoPanel[dibujaFila][dibujaCelda] = celda;
-         
+            if (celda !== 0) {
+               nuevoPanel[dibujaFila][dibujaCelda] = celda;
+            }
          })
       })
 
-      setCasillas(nuevoPanel);
+      return nuevoPanel;
    }
 
-   function hayColision() {
-      const pieza = piezaActual;
-
+   function hayColision(pieza = piezaActual) {
+      
       for (let i = 0; i < pieza.matriz.length; i++) {
          for (let j = 0; j < pieza.matriz[i].length; j++) {
             if (pieza.matriz[i][j] !== 0) { //si la celda de la pieza no esta vacia
@@ -54,6 +46,7 @@ export function Juego(){
 
                //verificamos si esta fuera del panel
                if (fila >= arrayCasillas.length || columna < 0 || columna >= arrayCasillas[0].length || arrayCasillas[fila][columna] !== 0) {
+
                   return true;
                }
             }
@@ -86,47 +79,49 @@ export function Juego(){
       window.addEventListener("keydown", Teclas);
       return () => window.removeEventListener("keydown", Teclas);
       
-   }, [piezaActual]);
+   }, [piezaActual, arrayCasillas]);
+
 
    function moverDer() {
-      //console.log("Mover a la derecha");
-      piezaActual.columna += 1;
-      if (hayColision()) {
-         piezaActual.columna -= 1;
+      //se hace en una copia para evitar hacerlo directamente en la pieza
+      const nuevaPieza = { ...piezaActual };
+      nuevaPieza.columna += 1;
+      if (hayColision(nuevaPieza)) {
+         return;
       } else {
          sumarPuntos(10);
-         pintarPieza();
+         setPiezaactual(nuevaPieza);
       }
    }
 
    function moverIzq() {
-      //console.log("Mover a la izquierda");
-      piezaActual.columna -= 1;
-      if (hayColision()) {
-         piezaActual.columna += 1;
+      const nuevaPieza = { ...piezaActual };
+      nuevaPieza.columna -= 1;
+      if (hayColision(nuevaPieza)) {
+         return;
       } else {
          sumarPuntos(10);
-         pintarPieza();
+         setPiezaactual(nuevaPieza);
       }
    }
 
    function bajar() {
-      //console.log("Bajar");
-      //console.log(piezaActual);
-      piezaActual.fila += 1;
-      if (hayColision()) {
-         piezaActual.fila -= 1;
+      const nuevaPieza = { ...piezaActual };
+      nuevaPieza.fila += 1;
+      if (hayColision(nuevaPieza)) {
+         // Si al bajar se produce colisión, la pieza ya no puede bajar más.
          piezaLlegaAbajo();
       } else {
          sumarPuntos(10);
-         pintarPieza();
+         setPiezaactual(nuevaPieza);
       }
    }
 
    function girar() {
       //console.log("Girar");
+      const nuevaPieza = { ...piezaActual };
       const anguloAnterior = piezaActual.angulo;
-      piezaActual.girar();
+      nuevaPieza.angulo +=1;
       if (hayColision()) {
          piezaActual.angulo = anguloAnterior;
          piezaActual.matriz = modelos.piezas[piezaActual.numero].matriz[anguloAnterior];
@@ -137,14 +132,13 @@ export function Juego(){
    }
 
    function iniciarMovimiento(){
-      //console.log("Iniciar");
-      timer = setInterval(bajar, 1000);
-      pintarPieza();
+      clearInterval(timerId); // Asegurar que no haya múltiples temporizadores
+      const newTimer = setInterval(bajar, 1000);
+      setTimerId(newTimer);
    }
 
    function iniciar(){
       preguntarNombre();
-      pintarPieza();
       iniciarMovimiento();
    }
 
@@ -156,46 +150,45 @@ export function Juego(){
    //preguntar nombre
    function preguntarNombre(){
       while(nombre === "" || nombre === null){
-      nombre = prompt("Introduce tu nombre");
+         nombre = prompt("Introduce tu nombre");
       }
    }
 
    //detectar que la pieza ha llegado abajo
    function piezaLlegaAbajo() {
-      // Verificar si la pieza no puede bajar más
-      piezaActual.fila += 1;
-      if (hayColision()) {
-         piezaActual.fila -= 1;
-         // La pieza ha llegado abajo, fijarla en su posición
-         const nuevoPanel = arrayCasillas.map((fila) => [...fila]);
-         piezaActual.matriz.forEach((fila, i) => {
-            fila.forEach((celda, j) => {
-               if (celda !== 0) {
-                  nuevoPanel[piezaActual.fila + i][piezaActual.columna + j] = celda;
-               }
-            });
+      const nuevoTablero = arrayCasillas.map(fila => [...fila]);
+      piezaActual.matriz.forEach((fila, i) => {
+         fila.forEach((celda, j) => {
+            if (celda !== 0) {
+               nuevoTablero[piezaActual.fila + i][piezaActual.columna + j] = celda;
+            }
          });
-         setCasillas(nuevoPanel);
-         // Generar una nueva pieza
-         setPiezaactual(nuevaPieza());
-         // Verificar si la nueva pieza colisiona al generarse
-         if (hayColision()) {
-            terminarPartida();
-         }
+      });
+      setCasillas(nuevoTablero);
+
+      clearInterval(timerId);
+
+      const nuevaPiezaGenerada = nuevaPieza();
+      setPiezaactual(nuevaPiezaGenerada);
+
+      if (hayColision(nuevaPiezaGenerada)) {
+         terminarPartida();
+      } else {
+         iniciarMovimiento();
       }
-   }
+   } 
 
    function terminarPartida(){
       console.log(nombre, format(date, 'dd/MM/yyyy'), puntuacion);
-      clearInterval(timer);
+      clearInterval(timerId);
       addPartida({ name: nombre, score: puntuacion });
       navigate("/tabla");
    }
 
    return(
    <>
-      <Panel arrayCasillas={arrayCasillas}/>
-      <button onClick={iniciar}>Jugar</button>
+      <Panel arrayCasillas={pintarPieza()}/>
+      <button onClick={iniciar} className="btn btn-secondary mt-3">Jugar</button>
       {/* <Piezas/> */}
    </>
    );
