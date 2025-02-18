@@ -9,6 +9,9 @@ import { format } from "date-fns";
 export function Juego(){
    const [arrayCasillas, setCasillas] = useState(modelos.matriz);
    const [piezaActual, setPiezaactual] = useState(nuevaPieza());
+   const { addPartida } = useContext(PartidasContext);
+
+   const navigate = useNavigate();
 
    var puntuacion = 0;
    let nombre = "";
@@ -109,7 +112,7 @@ export function Juego(){
       puntuacion += puntos;
    }
 
-   //preguntar nombre y guardar fecha
+   //preguntar nombre
    function preguntarNombre(){
       while(nombre === "" || nombre === null){
       nombre = prompt("Introduce tu nombre");

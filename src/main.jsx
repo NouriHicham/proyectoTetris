@@ -8,8 +8,6 @@ import tablaPartidas from "./componentes/context";
 
 createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <tablaPartidas>
             <App />
-        </tablaPartidas>
     </React.StrictMode>
 )
