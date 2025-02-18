@@ -91,31 +91,49 @@ export function Juego(){
    function moverDer() {
       //console.log("Mover a la derecha");
       piezaActual.columna += 1;
-      sumarPuntos(10);
-      pintarPieza();
+      if (hayColision()) {
+         piezaActual.columna -= 1;
+      } else {
+         sumarPuntos(10);
+         pintarPieza();
+      }
    }
 
    function moverIzq() {
       //console.log("Mover a la izquierda");
       piezaActual.columna -= 1;
-      sumarPuntos(10);
-      pintarPieza();
+      if (hayColision()) {
+         piezaActual.columna += 1;
+      } else {
+         sumarPuntos(10);
+         pintarPieza();
+      }
    }
 
    function bajar() {
       //console.log("Bajar");
-      console.log(piezaActual);
+      //console.log(piezaActual);
       piezaActual.fila += 1;
-      sumarPuntos(10);
-      pintarPieza(); 
-      piezaLlegaAbajo();
+      if (hayColision()) {
+         piezaActual.fila -= 1;
+         piezaLlegaAbajo();
+      } else {
+         sumarPuntos(10);
+         pintarPieza();
+      }
    }
 
    function girar() {
       //console.log("Girar");
+      const anguloAnterior = piezaActual.angulo;
       piezaActual.girar();
-      sumarPuntos(20);
-      pintarPieza();
+      if (hayColision()) {
+         piezaActual.angulo = anguloAnterior;
+         piezaActual.matriz = modelos.piezas[piezaActual.numero].matriz[anguloAnterior];
+      } else {
+         sumarPuntos(20);
+         pintarPieza();
+      }
    }
 
    function iniciarMovimiento(){
@@ -144,9 +162,26 @@ export function Juego(){
 
    //detectar que la pieza ha llegado abajo
    function piezaLlegaAbajo() {
-      if (piezaActual.fila === 19) {
-         sumarPuntos(50);
-         terminarPartida();
+      // Verificar si la pieza no puede bajar más
+      piezaActual.fila += 1;
+      if (hayColision()) {
+         piezaActual.fila -= 1;
+         // La pieza ha llegado abajo, fijarla en su posición
+         const nuevoPanel = arrayCasillas.map((fila) => [...fila]);
+         piezaActual.matriz.forEach((fila, i) => {
+            fila.forEach((celda, j) => {
+               if (celda !== 0) {
+                  nuevoPanel[piezaActual.fila + i][piezaActual.columna + j] = celda;
+               }
+            });
+         });
+         setCasillas(nuevoPanel);
+         // Generar una nueva pieza
+         setPiezaactual(nuevaPieza());
+         // Verificar si la nueva pieza colisiona al generarse
+         if (hayColision()) {
+            terminarPartida();
+         }
       }
    }
 
