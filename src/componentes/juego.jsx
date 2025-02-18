@@ -1,12 +1,23 @@
-import { useState, useEffect } from "react"
-import {Panel} from "./panel"
-import { Piezas } from "./pieza";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Panel } from "./panel";
 import { nuevaPieza } from "../lib/nuevaPieza";
-import {modelos} from "../lib/modelo"
+import { modelos } from "../lib/modelo";
+import { PartidasContext } from "./crearcontexto";
+import { format } from "date-fns";
 
 export function Juego(){
    const [arrayCasillas, setCasillas] = useState(modelos.matriz);
-   const [piezaActual, setPiezaactual] = useState(nuevaPieza())
+   const [piezaActual, setPiezaactual] = useState(nuevaPieza());
+   const { addPartida } = useContext(PartidasContext);
+
+   const navigate = useNavigate();
+
+   var puntuacion = 0;
+   let nombre = "";
+   let date = new Date();
+
+   var timer;
 
    //añade pieza arriba
    function pintarPieza(){
@@ -26,7 +37,6 @@ export function Juego(){
       })
 
       setCasillas(nuevoPanel);
-
    }
 
    //detectar teclas
@@ -57,47 +67,75 @@ export function Juego(){
 
    function moverDer() {
       //console.log("Mover a la derecha");
-      if (piezaActual) {
-         piezaActual.columna += 1;
-         pintarPieza();
-      }
+      piezaActual.columna += 1;
+      sumarPuntos(10);
+      pintarPieza();
    }
 
    function moverIzq() {
       //console.log("Mover a la izquierda");
-      if (piezaActual) {
-         piezaActual.columna -= 1;
-         pintarPieza();
-      }
+      piezaActual.columna -= 1;
+      sumarPuntos(10);
+      pintarPieza();
    }
 
    function bajar() {
-      console.log("Bajar");
+      //console.log("Bajar");
       console.log(piezaActual);
       piezaActual.fila += 1;
+      sumarPuntos(10);
       pintarPieza(); 
+      piezaLlegaAbajo();
    }
 
    function girar() {
       //console.log("Girar");
       piezaActual.girar();
+      sumarPuntos(20);
       pintarPieza();
    }
 
    function iniciarMovimiento(){
       //console.log("Iniciar");
-      setInterval(bajar, 1000);
+      timer = setInterval(bajar, 1000);
       pintarPieza();
    }
 
    function iniciar(){
+      preguntarNombre();
       pintarPieza();
       iniciarMovimiento();
    }
 
+   //sumar puntos
+   function sumarPuntos(puntos){
+      puntuacion += puntos;
+   }
+
+   //preguntar nombre
+   function preguntarNombre(){
+      while(nombre === "" || nombre === null){
+      nombre = prompt("Introduce tu nombre");
+      }
+   }
+
+   //detectar que la pieza ha llegado abajo
+   function piezaLlegaAbajo() {
+      if (piezaActual.fila === 19) {
+         sumarPuntos(50);
+         terminarPartida();
+      }
+   }
+
+   function terminarPartida(){
+      console.log(nombre, format(date, 'dd/MM/yyyy'), puntuacion);
+      clearInterval(timer);
+      addPartida({ name: nombre, score: puntuacion });
+      navigate("/tabla");
+   }
+
    return(
    <>
-      
       <Panel arrayCasillas={arrayCasillas}/>
       <button onClick={iniciar}>Jugar</button>
       {/* <Piezas/> */}
